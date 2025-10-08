@@ -1,0 +1,22 @@
+### Block a user
+POST http://localhost:8080/api/blocked-users
+Content-Type: application/json
+
+{
+  "userId": "user123",
+  "blockedBy": "admin456",
+  "blockReason": "Violation of terms of service"
+}
+
+### Unblock a user (replace {id} with actual document ID from block response)
+DELETE http://localhost:8080/api/blocked-users/{id}
+
+### Example: Block another user
+POST http://localhost:8080/api/blocked-users
+Content-Type: application/json
+
+{
+  "userId": "user789",
+  "blockedBy": "moderator001",
+  "blockReason": "Spam activity detected"
+}

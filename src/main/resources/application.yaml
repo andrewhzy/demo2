@@ -1,3 +1,8 @@
 spring:
   application:
-    name: demo2
+    name: blocked-users-service
+
+  elasticsearch:
+    uris: https://localhost:9200
+    username: elastic
+    password: EjpTk544t1dBWP4z
