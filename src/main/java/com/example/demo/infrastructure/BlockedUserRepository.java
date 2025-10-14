@@ -9,5 +9,7 @@ import java.util.Optional;
 @Repository
 public interface BlockedUserRepository extends ElasticsearchRepository<BlockedUser, String> {
 
-    Optional<BlockedUser> findByUserId(String userId);
+    Optional<BlockedUser> findByBlockedUserId(String blockedUserId);
+
+    void deleteByBlockedUserId(String blockedUserId);
 }

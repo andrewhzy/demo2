@@ -6,6 +6,7 @@ import com.example.demo.domain.BlockedUser;
 import com.example.demo.infrastructure.BlockedUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -32,6 +33,11 @@ public class BlockUserService {
 
     public void unblockUser(String id) {
         repository.deleteById(id);
+    }
+
+    @Transactional
+    public void unblockUserByUserId(String blockedUserId) {
+        repository.deleteByBlockedUserId(blockedUserId);
     }
 
     private BlockUserResponse toResponse(BlockedUser blockedUser) {

@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/blocked-users")
+@RequestMapping("/rest/api/v1/blocked-users")
 @RequiredArgsConstructor
 public class BlockedUserController {
 
@@ -20,9 +20,9 @@ public class BlockedUserController {
         return blockUserService.blockUser(request);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{blockedUserId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void unblockUser(@PathVariable String id) {
-        blockUserService.unblockUser(id);
+    public void unblockUser(@PathVariable String blockedUserId) {
+        blockUserService.unblockUserByUserId(blockedUserId);
     }
 }

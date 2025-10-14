@@ -1,5 +1,5 @@
 ### Block a user
-POST http://localhost:8080/api/blocked-users
+POST http://localhost:8080/rest/api/v1/blocked-users
 Content-Type: application/json
 
 {
@@ -8,11 +8,11 @@ Content-Type: application/json
   "blockReason": "Violation of terms of service"
 }
 
-### Unblock a user (replace {id} with actual document ID from block response)
-DELETE http://localhost:8080/api/blocked-users/ae5310d2-1d54-4558-a9d5-0609d1442471
+### Unblock a user by userId
+DELETE http://localhost:8080/rest/api/v1/blocked-users/user123
 
-### Example: Block another user
-POST http://localhost:8080/api/blocked-users
+### Block another user
+POST http://localhost:8080/rest/api/v1/blocked-users
 Content-Type: application/json
 
 {
@@ -20,3 +20,34 @@ Content-Type: application/json
   "blockedBy": "moderator001",
   "blockReason": "Spam activity detected"
 }
+
+### Unblock another user by userId
+DELETE http://localhost:8080/rest/api/v1/blocked-users/user789
+
+###
+
+### Allow a user
+POST http://localhost:8080/rest/api/v1/allowed-users
+Content-Type: application/json
+
+{
+  "userId": "user456",
+  "allowedBy": "admin789",
+  "allowReason": "Verified premium account"
+}
+
+### Remove allowed user by userId
+DELETE http://localhost:8080/rest/api/v1/allowed-users/user456
+
+### Allow another user
+POST http://localhost:8080/rest/api/v1/allowed-users
+Content-Type: application/json
+
+{
+  "userId": "user999",
+  "allowedBy": "support001",
+  "allowReason": "Special access granted"
+}
+
+### Remove another allowed user by userId
+DELETE http://localhost:8080/rest/api/v1/allowed-users/user999
