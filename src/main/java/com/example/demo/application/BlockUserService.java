@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -23,7 +22,6 @@ public class BlockUserService {
     public List<BlockUserResponse> blockUsers(List<BlockUserRequest> requests) {
         List<BlockedUser> blockedUsers = requests.stream()
                 .map(request -> BlockedUser.builder()
-                        .id(UUID.randomUUID().toString())
                         .blockedUserId(request.getUserId())
                         .createdAt(Instant.now())
                         .blockedBy(request.getBlockedBy())
@@ -54,7 +52,6 @@ public class BlockUserService {
 
     private BlockUserResponse toResponse(BlockedUser blockedUser) {
         return BlockUserResponse.builder()
-                .id(blockedUser.getId())
                 .userId(blockedUser.getBlockedUserId())
                 .createdAt(blockedUser.getCreatedAt())
                 .blockedBy(blockedUser.getBlockedBy())

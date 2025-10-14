@@ -13,7 +13,6 @@ import java.time.Instant;
 @AllArgsConstructor
 public class BlockUserResponse {
 
-    private String id;
     private String userId;
     private Instant createdAt;
     private String blockedBy;

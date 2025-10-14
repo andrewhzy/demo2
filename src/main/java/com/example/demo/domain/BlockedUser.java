@@ -19,8 +19,6 @@ import java.time.Instant;
 public class BlockedUser {
 
     @Id
-    private String id;
-
     @Field(type = FieldType.Keyword)
     private String blockedUserId;
 
