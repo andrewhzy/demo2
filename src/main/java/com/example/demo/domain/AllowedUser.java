@@ -16,20 +16,20 @@ import java.time.Instant;
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(indexName = "glean-gateway-users-access")
-public class BlockedUser {
+public class AllowedUser {
 
     @Id
     private String id;
 
     @Field(type = FieldType.Keyword)
-    private String blockedUserId;
+    private String allowedUserId;
 
     @Field(type = FieldType.Date)
-    private Instant blockedAt;
+    private Instant allowedAt;
 
     @Field(type = FieldType.Keyword)
-    private String blockedBy;
+    private String allowedBy;
 
     @Field(type = FieldType.Text)
-    private String blockReason;
+    private String allowReason;
 }
