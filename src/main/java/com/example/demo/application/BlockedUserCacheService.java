@@ -28,9 +28,9 @@ public class BlockedUserCacheService {
         log.info("Blocked users cache initialized with {} users", cache.size());
     }
 
-    @Scheduled(cron = "0,30 * * * * *")
+    @Scheduled(cron = "${blocked-users.cache.refresh-cron}")
     public void refreshCache() {
-        log.debug("Refreshing blocked users cache...");
+        log.info("Refreshing blocked users cache...");
         try {
             Iterable<BlockedUser> allUsers = repository.findAll();
             ConcurrentHashMap<String, BlockedUser> newCache = new ConcurrentHashMap<>();
@@ -40,7 +40,7 @@ public class BlockedUserCacheService {
             cache.clear();
             cache.putAll(newCache);
 
-            log.debug("Blocked users cache refreshed with {} users", cache.size());
+            log.info("Blocked users cache refreshed with {} users", cache.size());
         } catch (Exception e) {
             log.error("Error refreshing blocked users cache", e);
         }
