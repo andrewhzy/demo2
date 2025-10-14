@@ -22,7 +22,7 @@ public class BlockUserService {
     public List<BlockUserResponse> blockUsers(List<BlockUserRequest> requests) {
         List<BlockedUser> blockedUsers = requests.stream()
                 .map(request -> BlockedUser.builder()
-                        .blockedUserId(request.getUserId())
+                        .blockedUserId(request.getBlockedUserId())
                         .createdAt(Instant.now())
                         .blockedBy(request.getBlockedBy())
                         .blockReason(request.getBlockReason())
@@ -52,7 +52,7 @@ public class BlockUserService {
 
     private BlockUserResponse toResponse(BlockedUser blockedUser) {
         return BlockUserResponse.builder()
-                .userId(blockedUser.getBlockedUserId())
+                .blockedUserId(blockedUser.getBlockedUserId())
                 .createdAt(blockedUser.getCreatedAt())
                 .blockedBy(blockedUser.getBlockedBy())
                 .blockReason(blockedUser.getBlockReason())

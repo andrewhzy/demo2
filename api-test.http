@@ -4,7 +4,7 @@ Content-Type: application/json
 
 [
   {
-    "userId": "user124",
+    "blockedUserId": "user124",
     "blockedBy": "admin456",
     "blockReason": "Violation of terms of service"
   }
@@ -16,17 +16,17 @@ Content-Type: application/json
 
 [
   {
-    "userId": "user789",
+    "blockedUserId": "user789",
     "blockedBy": "moderator001",
     "blockReason": "Spam activity detected"
   },
   {
-    "userId": "user456",
+    "blockedUserId": "user456",
     "blockedBy": "admin789",
     "blockReason": "Harassment"
   },
   {
-    "userId": "user321",
+    "blockedUserId": "user321",
     "blockedBy": "moderator001",
     "blockReason": "Multiple violations"
   }

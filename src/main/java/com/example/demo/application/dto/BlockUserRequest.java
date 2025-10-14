@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BlockUserRequest {
 
-    private String userId;
+    private String blockedUserId;
     private String blockedBy;
     private String blockReason;
 }
