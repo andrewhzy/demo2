@@ -20,7 +20,7 @@ public class BlockUserService {
         BlockedUser blockedUser = BlockedUser.builder()
                 .id(UUID.randomUUID().toString())
                 .blockedUserId(request.getUserId())
-                .blockedAt(Instant.now())
+                .createdAt(Instant.now())
                 .blockedBy(request.getBlockedBy())
                 .blockReason(request.getBlockReason())
                 .build();
@@ -44,7 +44,7 @@ public class BlockUserService {
         return BlockUserResponse.builder()
                 .id(blockedUser.getId())
                 .userId(blockedUser.getBlockedUserId())
-                .blockedAt(blockedUser.getBlockedAt())
+                .blockedAt(blockedUser.getCreatedAt())
                 .blockedBy(blockedUser.getBlockedBy())
                 .blockReason(blockedUser.getBlockReason())
                 .build();
