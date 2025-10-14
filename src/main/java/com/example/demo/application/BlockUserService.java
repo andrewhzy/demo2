@@ -11,6 +11,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 @RequiredArgsConstructor
@@ -19,22 +20,26 @@ public class BlockUserService {
     private final BlockedUserRepository repository;
     private final BlockedUserCacheService cacheService;
 
-    public BlockUserResponse blockUser(BlockUserRequest request) {
-        BlockedUser blockedUser = BlockedUser.builder()
-                .id(UUID.randomUUID().toString())
-                .blockedUserId(request.getUserId())
-                .createdAt(Instant.now())
-                .blockedBy(request.getBlockedBy())
-                .blockReason(request.getBlockReason())
-                .build();
+    public List<BlockUserResponse> blockUsers(List<BlockUserRequest> requests) {
+        List<BlockedUser> blockedUsers = requests.stream()
+                .map(request -> BlockedUser.builder()
+                        .id(UUID.randomUUID().toString())
+                        .blockedUserId(request.getUserId())
+                        .createdAt(Instant.now())
+                        .blockedBy(request.getBlockedBy())
+                        .blockReason(request.getBlockReason())
+                        .build())
+                .collect(Collectors.toList());
 
-        BlockedUser saved = repository.save(blockedUser);
+        Iterable<BlockedUser> savedUsers = repository.saveAll(blockedUsers);
 
-        return toResponse(saved);
+        return StreamSupport.stream(savedUsers.spliterator(), false)
+                .map(this::toResponse)
+                .collect(Collectors.toList());
     }
 
-    public void unblockUser(String id) {
-        repository.deleteById(id);
+    public void unblockUsers(List<String> userIds) {
+        repository.deleteByBlockedUserIdIn(userIds);
     }
 
     public boolean isUserBlocked(String userId) {

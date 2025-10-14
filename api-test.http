@@ -1,25 +1,48 @@
-### Block a user
-POST http://localhost:8080/api/blocked-users
+### Block a single user
+POST http://localhost:8080/rest/api/v1/blocked-users
 Content-Type: application/json
 
-{
-  "userId": "user124",
-  "blockedBy": "admin456",
-  "blockReason": "Violation of terms of service"
-}
+[
+  {
+    "userId": "user124",
+    "blockedBy": "admin456",
+    "blockReason": "Violation of terms of service"
+  }
+]
+
+### Block multiple users
+POST http://localhost:8080/rest/api/v1/blocked-users
+Content-Type: application/json
+
+[
+  {
+    "userId": "user789",
+    "blockedBy": "moderator001",
+    "blockReason": "Spam activity detected"
+  },
+  {
+    "userId": "user456",
+    "blockedBy": "admin789",
+    "blockReason": "Harassment"
+  },
+  {
+    "userId": "user321",
+    "blockedBy": "moderator001",
+    "blockReason": "Multiple violations"
+  }
+]
 
 ### Get all blocked users
-GET http://localhost:8080/api/blocked-users
+GET http://localhost:8080/rest/api/v1/blocked-users
 
-### Unblock a user (replace {id} with actual document ID from block response)
-DELETE http://localhost:8080/api/blocked-users/ae5310d2-1d54-4558-a9d5-0609d1442471
-
-### Example: Block another user
-POST http://localhost:8080/api/blocked-users
+### Unblock a single user
+POST http://localhost:8080/rest/api/v1/blocked-users/unblock
 Content-Type: application/json
 
-{
-  "userId": "user789",
-  "blockedBy": "moderator001",
-  "blockReason": "Spam activity detected"
-}
+["user124"]
+
+### Unblock multiple users
+POST http://localhost:8080/rest/api/v1/blocked-users/unblock
+Content-Type: application/json
+
+["user789", "user456", "user321"]

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/blocked-users")
+@RequestMapping("/rest/api/v1/blocked-users")
 @RequiredArgsConstructor
 public class BlockedUserController {
 
@@ -18,8 +18,8 @@ public class BlockedUserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public BlockUserResponse blockUser(@RequestBody BlockUserRequest request) {
-        return blockUserService.blockUser(request);
+    public List<BlockUserResponse> blockUser(@RequestBody List<BlockUserRequest> requests) {
+        return blockUserService.blockUsers(requests);
     }
 
     @GetMapping
@@ -28,9 +28,9 @@ public class BlockedUserController {
         return allBlockedUsers;
     }
 
-    @DeleteMapping("/{id}")
+    @PostMapping("/unblock")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void unblockUser(@PathVariable String id) {
-        blockUserService.unblockUser(id);
+    public void unblockUsers(@RequestBody List<String> userIds) {
+        blockUserService.unblockUsers(userIds);
     }
 }
