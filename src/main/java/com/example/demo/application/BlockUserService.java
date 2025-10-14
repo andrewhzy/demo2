@@ -8,13 +8,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class BlockUserService {
 
     private final BlockedUserRepository repository;
+    private final BlockedUserCacheService cacheService;
 
     public BlockUserResponse blockUser(BlockUserRequest request) {
         BlockedUser blockedUser = BlockedUser.builder()
@@ -32,6 +35,10 @@ public class BlockUserService {
 
     public void unblockUser(String id) {
         repository.deleteById(id);
+    }
+
+    public boolean isUserBlocked(String userId) {
+        return cacheService.isUserBlocked(userId);
     }
 
     public java.util.List<BlockUserResponse> getAllBlockedUsers() {
