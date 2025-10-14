@@ -34,6 +34,14 @@ Content-Type: application/json
 
 ### Get all blocked users
 GET http://localhost:8080/rest/api/v1/blocked-users
+Content-Type: application/json
+
+
+### Get all blocked users
+GET http://localhost:8080/rest/api/v1/blocked-users
+Content-Type: application/json
+
+["user789", "user456", "user321"]
 
 ### Unblock a single user
 POST http://localhost:8080/rest/api/v1/blocked-users/unblock

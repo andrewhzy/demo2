@@ -44,9 +44,15 @@ public class BlockUserService {
         return cacheService.isUserBlocked(userId);
     }
 
-    public java.util.List<BlockUserResponse> getAllBlockedUsers() {
+    public java.util.List<BlockUserResponse> getAllBlockedUsers(List<String> userIds) {
         java.util.List<BlockUserResponse> result = new java.util.ArrayList<>();
-        repository.findAll().forEach(blockedUser -> result.add(toResponse(blockedUser)));
+
+        if (userIds == null || userIds.isEmpty()) {
+            repository.findAll().forEach(blockedUser -> result.add(toResponse(blockedUser)));
+        } else {
+            repository.findByBlockedUserIdIn(userIds).forEach(blockedUser -> result.add(toResponse(blockedUser)));
+        }
+
         return result;
     }
 

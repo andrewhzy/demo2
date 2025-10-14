@@ -23,9 +23,11 @@ public class BlockedUserController {
     }
 
     @GetMapping
-    public java.util.List<BlockUserResponse> getAllBlockedUsers() {
-        List<BlockUserResponse> allBlockedUsers = blockUserService.getAllBlockedUsers();
-        return allBlockedUsers;
+    public java.util.List<BlockUserResponse> getAllBlockedUsers(@RequestBody(required = false) List<String> userIds) {
+        if (userIds == null) {
+            userIds = List.of();
+        }
+        return blockUserService.getAllBlockedUsers(userIds);
     }
 
     @PostMapping("/unblock")

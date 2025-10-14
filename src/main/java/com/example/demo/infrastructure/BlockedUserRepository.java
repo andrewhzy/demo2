@@ -13,5 +13,7 @@ public interface BlockedUserRepository extends ElasticsearchRepository<BlockedUs
 
     Optional<BlockedUser> findByBlockedUserId(String blockedUserId);
 
+    List<BlockedUser> findByBlockedUserIdIn(List<String> blockedUserIds);
+
     void deleteByBlockedUserIdIn(List<String> blockedUserIds);
 }
