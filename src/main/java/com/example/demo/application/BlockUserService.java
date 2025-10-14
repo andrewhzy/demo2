@@ -44,7 +44,7 @@ public class BlockUserService {
         return BlockUserResponse.builder()
                 .id(blockedUser.getId())
                 .userId(blockedUser.getBlockedUserId())
-                .blockedAt(blockedUser.getCreatedAt())
+                .createdAt(blockedUser.getCreatedAt())
                 .blockedBy(blockedUser.getBlockedBy())
                 .blockReason(blockedUser.getBlockReason())
                 .build();

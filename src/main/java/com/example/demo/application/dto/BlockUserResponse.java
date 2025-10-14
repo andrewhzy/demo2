@@ -15,7 +15,7 @@ public class BlockUserResponse {
 
     private String id;
     private String userId;
-    private Instant blockedAt;
+    private Instant createdAt;
     private String blockedBy;
     private String blockReason;
 }

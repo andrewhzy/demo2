@@ -15,7 +15,7 @@ import java.time.Instant;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(indexName = "glean-gateway-blocked-users")
+@Document(indexName = "glean-gateway-users-access")
 public class BlockedUser {
 
     @Id
