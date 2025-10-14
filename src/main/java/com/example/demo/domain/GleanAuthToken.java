@@ -22,7 +22,13 @@ public class GleanAuthToken {
     private String id;
 
     @Field(type = FieldType.Keyword)
-    private String gleanAuthToken;
+    private String userId;
+
+    @Field(type = FieldType.Keyword)
+    private String BlockedUser;
+
+    @Field(type = FieldType.Date)
+    private Instant createdAt;
 
     @Field(type = FieldType.Date)
     private Instant expiredAt;
