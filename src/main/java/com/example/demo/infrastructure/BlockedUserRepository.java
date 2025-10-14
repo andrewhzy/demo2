@@ -10,6 +10,6 @@ import java.util.Optional;
 @Repository
 public interface BlockedUserRepository extends ElasticsearchRepository<BlockedUser, String> {
 
-    @Cacheable(value = "blockedUsers", key = "#userId")
-    Optional<BlockedUser> findByUserId(String userId);
+    @Cacheable(value = "blockedUsers", key = "#blockedUserId")
+    Optional<BlockedUser> findByBlockedUserId(String blockedUserId);
 }

@@ -34,6 +34,12 @@ public class BlockUserService {
         repository.deleteById(id);
     }
 
+    public java.util.List<BlockUserResponse> getAllBlockedUsers() {
+        java.util.List<BlockUserResponse> result = new java.util.ArrayList<>();
+        repository.findAll().forEach(blockedUser -> result.add(toResponse(blockedUser)));
+        return result;
+    }
+
     private BlockUserResponse toResponse(BlockedUser blockedUser) {
         return BlockUserResponse.builder()
                 .id(blockedUser.getId())

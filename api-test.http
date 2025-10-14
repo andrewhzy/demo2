@@ -3,10 +3,13 @@ POST http://localhost:8080/api/blocked-users
 Content-Type: application/json
 
 {
-  "userId": "user123",
+  "userId": "user124",
   "blockedBy": "admin456",
   "blockReason": "Violation of terms of service"
 }
+
+### Get all blocked users
+GET http://localhost:8080/api/blocked-users
 
 ### Unblock a user (replace {id} with actual document ID from block response)
 DELETE http://localhost:8080/api/blocked-users/ae5310d2-1d54-4558-a9d5-0609d1442471

@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/blocked-users")
 @RequiredArgsConstructor
@@ -18,6 +20,12 @@ public class BlockedUserController {
     @ResponseStatus(HttpStatus.CREATED)
     public BlockUserResponse blockUser(@RequestBody BlockUserRequest request) {
         return blockUserService.blockUser(request);
+    }
+
+    @GetMapping
+    public java.util.List<BlockUserResponse> getAllBlockedUsers() {
+        List<BlockUserResponse> allBlockedUsers = blockUserService.getAllBlockedUsers();
+        return allBlockedUsers;
     }
 
     @DeleteMapping("/{id}")
