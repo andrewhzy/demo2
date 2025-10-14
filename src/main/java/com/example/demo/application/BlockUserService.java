@@ -16,6 +16,7 @@ import java.util.UUID;
 public class BlockUserService {
 
     private final BlockedUserRepository repository;
+    private final BlockedUserCacheService cacheService;
 
     public BlockUserResponse blockUser(BlockUserRequest request) {
         BlockedUser blockedUser = BlockedUser.builder()
@@ -38,6 +39,24 @@ public class BlockUserService {
     @Transactional
     public void unblockUserByUserId(String blockedUserId) {
         repository.deleteByBlockedUserId(blockedUserId);
+    }
+
+    /**
+     * Check if a user is blocked using the cache for fast lookup.
+     * @param userId the user ID to check
+     * @return true if user is blocked, false otherwise
+     */
+    public boolean isUserBlocked(String userId) {
+        return cacheService.isUserBlocked(userId);
+    }
+
+    /**
+     * Get blocked user details from cache.
+     * @param userId the user ID
+     * @return BlockedUser if found, null otherwise
+     */
+    public BlockedUser getBlockedUserFromCache(String userId) {
+        return cacheService.getBlockedUser(userId);
     }
 
     private BlockUserResponse toResponse(BlockedUser blockedUser) {

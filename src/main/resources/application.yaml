@@ -6,3 +6,8 @@ spring:
     uris: https://localhost:9200
     username: elastic
     password: 91pSayjpFj2se4AP
+
+cache:
+  blocked-users:
+    enabled: true
+    refresh-interval: 30000  # 30 seconds
