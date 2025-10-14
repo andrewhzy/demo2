@@ -5,4 +5,4 @@ spring:
   elasticsearch:
     uris: https://localhost:9200
     username: elastic
-    password: ckWwHyGuoayyWfme
+    password: 91pSayjpFj2se4AP

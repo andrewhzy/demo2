@@ -25,7 +25,7 @@ public class BlockedUser {
     private String blockedUserId;
 
     @Field(type = FieldType.Date)
-    private Instant blockedAt;
+    private Instant createdAt;
 
     @Field(type = FieldType.Keyword)
     private String blockedBy;

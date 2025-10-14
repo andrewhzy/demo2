@@ -21,7 +21,7 @@ public class AllowUserService {
         AllowedUser allowedUser = AllowedUser.builder()
                 .id(UUID.randomUUID().toString())
                 .allowedUserId(request.getUserId())
-                .allowedAt(Instant.now())
+                .createdAt(Instant.now())
                 .allowedBy(request.getAllowedBy())
                 .allowReason(request.getAllowReason())
                 .build();
@@ -40,7 +40,7 @@ public class AllowUserService {
         return AllowUserResponse.builder()
                 .id(allowedUser.getId())
                 .userId(allowedUser.getAllowedUserId())
-                .allowedAt(allowedUser.getAllowedAt())
+                .allowedAt(allowedUser.getCreatedAt())
                 .allowedBy(allowedUser.getAllowedBy())
                 .allowReason(allowedUser.getAllowReason())
                 .build();

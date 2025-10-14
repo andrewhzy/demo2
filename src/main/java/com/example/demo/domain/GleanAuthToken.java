@@ -28,7 +28,7 @@ public class GleanAuthToken {
     private String BlockedUser;
 
     @Field(type = FieldType.Date)
-    private Instant createdAt;
+    private Instant addedAt;
 
     @Field(type = FieldType.Date)
     private Instant expiredAt;

@@ -25,7 +25,7 @@ public class AllowedUser {
     private String allowedUserId;
 
     @Field(type = FieldType.Date)
-    private Instant allowedAt;
+    private Instant createdAt;
 
     @Field(type = FieldType.Keyword)
     private String allowedBy;
