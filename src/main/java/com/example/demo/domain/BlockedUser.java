@@ -22,7 +22,7 @@ public class BlockedUser {
     private String id;
 
     @Field(type = FieldType.Keyword)
-    private String userId;
+    private String blockedUserId;
 
     @Field(type = FieldType.Date)
     private Instant blockedAt;
