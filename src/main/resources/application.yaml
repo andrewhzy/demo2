@@ -6,8 +6,3 @@ spring:
     uris: https://localhost:9200
     username: elastic
     password: 91pSayjpFj2se4AP
-
-  cache:
-    type: caffeine
-    caffeine:
-      spec: maximumSize=1000,expireAfterWrite=10m
