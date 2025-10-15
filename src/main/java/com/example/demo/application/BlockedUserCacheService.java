@@ -49,8 +49,4 @@ public class BlockedUserCacheService {
     public boolean isUserBlocked(String userId) {
         return cache.containsKey(userId);
     }
-
-    public List<BlockedUser> getAllBlockedUsers() {
-        return List.copyOf(cache.values());
-    }
 }
