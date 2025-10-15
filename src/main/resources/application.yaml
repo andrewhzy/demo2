@@ -6,6 +6,7 @@ spring:
     uris: https://localhost:9200
     username: elastic
     password: 91pSayjpFj2se4AP
+    index-name: glean-gateway-users-access
 
 blocked-users:
   cache:
