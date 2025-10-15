@@ -20,24 +20,20 @@ public class BlockUserService {
     private final BlockedUserCacheService cacheService;
 
     public List<BlockUserResponse> blockUsers(List<BlockUserRequest> requests) {
-        List<BlockedUser> blockedUsers = requests.stream()
+        return requests.stream()
                 .map(request -> BlockedUser.builder()
                         .blockedUserId(request.getBlockedUserId())
                         .createdAt(Instant.now())
                         .blockedBy(request.getBlockedBy())
                         .blockReason(request.getBlockReason())
                         .build())
-                .collect(Collectors.toList());
-
-        Iterable<BlockedUser> savedUsers = repository.saveAll(blockedUsers);
-
-        return StreamSupport.stream(savedUsers.spliterator(), false)
+                .map(repository::save)
                 .map(this::toResponse)
                 .collect(Collectors.toList());
     }
 
     public void unblockUsers(List<String> userIds) {
-        repository.deleteByBlockedUserIdIn(userIds);
+        userIds.forEach(repository::deleteById);
     }
 
     public boolean isUserBlocked(String userId) {
