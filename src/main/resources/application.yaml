@@ -10,4 +10,4 @@ spring:
 
 blocked-users:
   cache:
-    refresh-cron: "0,30 * * * * *"
+    refresh-cron: "*/5 * * * * *"
