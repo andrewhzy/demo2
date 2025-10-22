@@ -1,6 +1,7 @@
 package com.example.demo.application.blacklist;
 
-import com.example.demo.domain.BlockedUser;
+import com.example.demo.domain.ServiceType;
+import com.example.demo.domain.UserAccessRecord;
 import com.example.demo.infrastructure.BlockedUserRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
@@ -16,7 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class BlockedUserCacheService {
 
     private final BlockedUserRepository repository;
-    private final ConcurrentHashMap<String, BlockedUser> cache = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, UserAccessRecord> cache = new ConcurrentHashMap<>();
 
     @PostConstruct
     public void initializeCache() {
@@ -29,10 +31,10 @@ public class BlockedUserCacheService {
     public void refreshCache() {
         log.info("Refreshing blocked users cache...");
         try {
-            Iterable<BlockedUser> allUsers = repository.findAll();
-            ConcurrentHashMap<String, BlockedUser> newCache = new ConcurrentHashMap<>();
+            List<UserAccessRecord> allUsers = repository.findByServiceType(ServiceType.BLACKLIST);
+            ConcurrentHashMap<String, UserAccessRecord> newCache = new ConcurrentHashMap<>();
 
-            allUsers.forEach(user -> newCache.put(user.getBlockedUserId(), user));
+            allUsers.forEach(user -> newCache.put(user.getUserId(), user));
 
             cache.clear();
             cache.putAll(newCache);

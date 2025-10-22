@@ -2,7 +2,8 @@ package com.example.demo.application.blacklist;
 
 import com.example.demo.application.blacklist.dto.BlockUserRequest;
 import com.example.demo.application.blacklist.dto.BlockUserResponse;
-import com.example.demo.domain.BlockedUser;
+import com.example.demo.domain.ServiceType;
+import com.example.demo.domain.UserAccessRecord;
 import com.example.demo.infrastructure.BlockedUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,11 +21,12 @@ public class BlockUserService {
 
     public List<BlockUserResponse> blockUsers(List<BlockUserRequest> requests) {
         return requests.stream()
-                .map(request -> BlockedUser.builder()
-                        .blockedUserId(request.getBlockedUserId())
+                .map(request -> UserAccessRecord.builder()
+                        .serviceType(ServiceType.BLACKLIST)
+                        .userId(request.getUserId())
                         .createdAt(Instant.now())
-                        .blockedBy(request.getBlockedBy())
-                        .blockReason(request.getBlockReason())
+                        .createdBy(request.getCreatedBy())
+                        .description(request.getDescription())
                         .build())
                 .map(repository::save)
                 .map(this::toResponse)
@@ -32,7 +34,7 @@ public class BlockUserService {
     }
 
     public void unblockUsers(List<String> userIds) {
-        userIds.forEach(repository::deleteById);
+        userIds.forEach(userId -> repository.deleteByUserIdAndServiceType(userId, ServiceType.BLACKLIST));
     }
 
     public boolean isUserBlocked(String userId) {
@@ -43,20 +45,20 @@ public class BlockUserService {
         java.util.List<BlockUserResponse> result = new java.util.ArrayList<>();
 
         if (userIds == null || userIds.isEmpty()) {
-            repository.findAll().forEach(blockedUser -> result.add(toResponse(blockedUser)));
+            repository.findByServiceType(ServiceType.BLACKLIST).forEach(record -> result.add(toResponse(record)));
         } else {
-            repository.findByBlockedUserIdIn(userIds).forEach(blockedUser -> result.add(toResponse(blockedUser)));
+            repository.findByUserIdInAndServiceType(userIds, ServiceType.BLACKLIST).forEach(record -> result.add(toResponse(record)));
         }
 
         return result;
     }
 
-    private BlockUserResponse toResponse(BlockedUser blockedUser) {
+    private BlockUserResponse toResponse(UserAccessRecord record) {
         return BlockUserResponse.builder()
-                .blockedUserId(blockedUser.getBlockedUserId())
-                .createdAt(blockedUser.getCreatedAt())
-                .blockedBy(blockedUser.getBlockedBy())
-                .blockReason(blockedUser.getBlockReason())
+                .userId(record.getUserId())
+                .createdAt(record.getCreatedAt())
+                .createdBy(record.getCreatedBy())
+                .description(record.getDescription())
                 .build();
     }
 }

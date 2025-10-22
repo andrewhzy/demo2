@@ -4,9 +4,9 @@ Content-Type: application/json
 
 [
   {
-    "blockedUserId": "user124",
-    "blockedBy": "admin456",
-    "blockReason": "Violation of terms of service"
+    "userId": "user124",
+    "createdBy": "admin456",
+    "description": "Violation of terms of service"
   }
 ]
 
@@ -16,19 +16,19 @@ Content-Type: application/json
 
 [
   {
-    "blockedUserId": "user789",
-    "blockedBy": "moderator001",
-    "blockReason": "Spam activity detected"
+    "userId": "user789",
+    "createdBy": "moderator001",
+    "description": "Spam activity detected"
   },
   {
-    "blockedUserId": "user456",
-    "blockedBy": "admin789",
-    "blockReason": "Harassment"
+    "userId": "user456",
+    "createdBy": "admin789",
+    "description": "Harassment"
   },
   {
-    "blockedUserId": "user321",
-    "blockedBy": "moderator001",
-    "blockReason": "Multiple violations"
+    "userId": "user321",
+    "createdBy": "moderator001",
+    "description": "Multiple violations"
   }
 ]
 

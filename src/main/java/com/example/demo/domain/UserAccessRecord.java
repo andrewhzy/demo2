@@ -15,7 +15,7 @@ import java.time.Instant;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(indexName = "#{@environment.getProperty('spring.elasticsearch.index-name')}", createIndex = false)
+@Document(indexName = "#{@environment.getProperty('spring.elasticsearch.index-name')}")
 public class UserAccessRecord {
 
     @Id

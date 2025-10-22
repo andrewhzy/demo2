@@ -1,7 +1,7 @@
 package com.example.demo.infrastructure;
 
-import com.example.demo.domain.BlockedUser;
-import org.springframework.cache.annotation.Cacheable;
+import com.example.demo.domain.ServiceType;
+import com.example.demo.domain.UserAccessRecord;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,11 +9,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface BlockedUserRepository extends ElasticsearchRepository<BlockedUser, String> {
+public interface BlockedUserRepository extends ElasticsearchRepository<UserAccessRecord, String> {
 
-    Optional<BlockedUser> findByBlockedUserId(String blockedUserId);
+    Optional<UserAccessRecord> findByUserIdAndServiceType(String userId, ServiceType serviceType);
 
-    List<BlockedUser> findByBlockedUserIdIn(List<String> blockedUserIds);
+    List<UserAccessRecord> findByUserIdInAndServiceType(List<String> userIds, ServiceType serviceType);
 
-    void deleteByBlockedUserIdIn(List<String> blockedUserIds);
+    List<UserAccessRecord> findByServiceType(ServiceType serviceType);
+
+    void deleteByUserIdAndServiceType(String userId, ServiceType serviceType);
 }
