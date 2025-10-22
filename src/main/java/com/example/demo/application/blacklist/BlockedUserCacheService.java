@@ -1,4 +1,4 @@
-package com.example.demo.application;
+package com.example.demo.application.blacklist;
 
 import com.example.demo.domain.BlockedUser;
 import com.example.demo.infrastructure.BlockedUserRepository;
@@ -8,10 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 @RequiredArgsConstructor

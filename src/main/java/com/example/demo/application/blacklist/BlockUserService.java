@@ -1,7 +1,7 @@
-package com.example.demo.application;
+package com.example.demo.application.blacklist;
 
-import com.example.demo.application.dto.BlockUserRequest;
-import com.example.demo.application.dto.BlockUserResponse;
+import com.example.demo.application.blacklist.dto.BlockUserRequest;
+import com.example.demo.application.blacklist.dto.BlockUserResponse;
 import com.example.demo.domain.BlockedUser;
 import com.example.demo.infrastructure.BlockedUserRepository;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 @RequiredArgsConstructor

@@ -1,15 +1,20 @@
-package com.example.demo.application.dto;
+package com.example.demo.application.blacklist.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
+
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BlockUserRequest {
+public class BlockUserResponse {
 
     private String blockedUserId;
+    private Instant createdAt;
     private String blockedBy;
     private String blockReason;
 }

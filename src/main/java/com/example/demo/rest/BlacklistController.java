@@ -1,8 +1,8 @@
 package com.example.demo.rest;
 
-import com.example.demo.application.BlockUserService;
-import com.example.demo.application.dto.BlockUserRequest;
-import com.example.demo.application.dto.BlockUserResponse;
+import com.example.demo.application.blacklist.BlockUserService;
+import com.example.demo.application.blacklist.dto.BlockUserRequest;
+import com.example.demo.application.blacklist.dto.BlockUserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/rest/api/v1/blocked-users")
 @RequiredArgsConstructor
-public class BlockedUserController {
+public class BlacklistController {
 
     private final BlockUserService blockUserService;
 
