@@ -16,20 +16,23 @@ import java.time.Instant;
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(indexName = "#{@environment.getProperty('spring.elasticsearch.index-name')}", createIndex = false)
-public class BlockedUser {
+public class UserAccess {
 
     @Id
     private String id;
 
     @Field(type = FieldType.Keyword)
-    private String blockedUserId;
+    ServiceType serviceType;
+
+    @Field(type = FieldType.Keyword)
+    private String userId;
 
     @Field(type = FieldType.Date)
     private Instant createdAt;
 
     @Field(type = FieldType.Keyword)
-    private String blockedBy;
+    private String createdBy;
 
     @Field(type = FieldType.Text)
-    private String blockReason;
+    private String description;
 }
