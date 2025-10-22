@@ -11,8 +11,6 @@ import java.util.Optional;
 @Repository
 public interface BlockedUserRepository extends ElasticsearchRepository<UserAccessRecord, String> {
 
-    Optional<UserAccessRecord> findByUserIdAndServiceType(String userId, ServiceType serviceType);
-
     List<UserAccessRecord> findByUserIdInAndServiceType(List<String> userIds, ServiceType serviceType);
 
     List<UserAccessRecord> findByServiceType(ServiceType serviceType);
