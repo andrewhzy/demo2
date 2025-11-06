@@ -3,7 +3,7 @@
 ```
 Dimensions:
 - Allocation: Dynamic | Static
-- Scheduler: Default | App-aware | App-aware-gang
+- Scheduling: Default | App-aware | App-aware-gang
 - Preemption: Enabled | Disabled
 
 Total: 2 × 3 × 2 = 12 scenarios
@@ -13,7 +13,7 @@ Total: 2 × 3 × 2 = 12 scenarios
 
 ## **Without Preemption**
 
-| # | Allocation | Scheduler | Deadlock Risk | Can Break Deadlock? | Efficiency | Stage Failure Risk | Notes |
+| # | Allocation | Scheduling | Deadlock Risk | Can Break Deadlock? | Efficiency | Stage Failure Risk | Notes |
 |---|------------|-----------|---------------|---------------------|------------|-------------------|-------|
 | 1 | Dynamic | Default | ⚠️ **HIGH** | ❌ No | High | Medium | Interleaved allocation, stuck forever |
 | 2 | Static | Default | ⚠️ **HIGH** | ❌ No | Low | Low | Pod-by-pod deadlock, stuck forever |
@@ -26,7 +26,7 @@ Total: 2 × 3 × 2 = 12 scenarios
 
 ## **With Preemption**
 
-| # | Allocation | Scheduler | Deadlock Risk | Can Break Deadlock? | Efficiency | Stage Failure Risk | Preemption Issues | Notes |
+| # | Allocation | Scheduling | Deadlock Risk | Can Break Deadlock? | Efficiency | Stage Failure Risk | Preemption Issues | Notes |
 |---|------------|-----------|---------------|---------------------|------------|-------------------|-------------------|-------|
 | 7 | Dynamic | Default | ⚠️ Medium | ✅ Yes (messy) | Medium | High | ⚠️ **Thrashing** | Breaks deadlock but pod-by-pod, unpredictable |
 | 8 | Static | Default | ⚠️ Medium | ✅ Yes (messy) | Low-Med | Medium | ⚠️ **Thrashing** | Breaks deadlock but cascading kills |
@@ -39,18 +39,18 @@ Total: 2 × 3 × 2 = 12 scenarios
 
 ## Deadlock Breaking Mechanisms
 
-### **Scenarios 1-2: Default Scheduler (No Preemption)**
+### **Scenarios 1-2: Default Scheduling (No Preemption)**
 ```
 Deadlock state:
 Job A: 25/30e stuck
 Job B: 25/30e stuck
 
 Breaking: ❌ IMPOSSIBLE
-- No scheduler intelligence
+- No scheduling intelligence
 - Manual intervention required (kill a job)
 ```
 
-### **Scenarios 3-6: App-aware Schedulers (No Preemption)**
+### **Scenarios 3-6: App-aware Schedulings (No Preemption)**
 ```
 Deadlock state:
 Job A: 15/30e stuck (mid-scale)
@@ -157,7 +157,7 @@ Job A (pri=50): 30e gang running
 Job B (pri=100): 40e gang queued
 
 Breaking: ✅ YES (atomic)
-1. Gang scheduler recognizes conflict
+1. Gang scheduling recognizes conflict
 2. Preempt entire Job A gang (30e atomic)
 3. Job B needs 10e more
 4. Preempt another low-pri gang (atomic)
