@@ -13,27 +13,27 @@ Total: 2 × 3 × 2 = 12 scenarios
 
 ## **Without Preemption**
 
-| # | Allocation | Scheduling | Deadlock Risk | Can Break Deadlock? | Efficiency | Stage Failure Risk | Notes |
-|---|------------|-----------|---------------|---------------------|------------|-------------------|-------|
-| 1 | Dynamic | Default | ⚠️ **HIGH** | ❌ No | High | Medium | Interleaved allocation, stuck forever |
-| 2 | Static | Default | ⚠️ **HIGH** | ❌ No | Low | Low | Pod-by-pod deadlock, stuck forever |
-| 3 | Dynamic | App-aware | ⚠️ Medium | ❌ No | High | **HIGH** | Queue prevents initial deadlock, scale-up starves |
-| 4 | Static | App-aware | ✅ **SAFE** | N/A | Low | ✅ Low | No deadlock (queued, full allocation) |
-| 5 | Dynamic | App-aware-gang | ⚠️ Low-Med | ❌ No | Medium-High | **HIGH** | Min gang scheduled, scale-up can starve |
-| 6 | Static | App-aware-gang | ✅ **SAFE** | N/A | Low | ✅ Low | No deadlock (full gang guarantee) |
+| # | Allocation | Scheduling | Deadlock Risk | Can Break Deadlock? | Efficiency | Stage Failure Risk | Supported By | Notes |
+|---|------------|-----------|---------------|---------------------|------------|-------------------|--------------|-------|
+| 1 | Dynamic | Default | ⚠️ **HIGH** | ❌ No | High | Medium | Default K8s Scheduler | Interleaved allocation, stuck forever |
+| 2 | Static | Default | ⚠️ **HIGH** | ❌ No | Low | Low | Default K8s Scheduler | Pod-by-pod deadlock, stuck forever |
+| 3 | Dynamic | App-aware | ⚠️ Medium | ❌ No | High | **HIGH** | YuniKorn, Volcano | Queue prevents initial deadlock, scale-up starves |
+| 4 | Static | App-aware | ✅ **SAFE** | N/A | Low | ✅ Low | YuniKorn, Volcano | No deadlock (queued, full allocation) |
+| 5 | Dynamic | App-aware-gang | ⚠️ Low-Med | ❌ No | Medium-High | **HIGH** | YuniKorn, Volcano | Min gang scheduled, scale-up can starve |
+| 6 | Static | App-aware-gang | ✅ **SAFE** | N/A | Low | ✅ Low | YuniKorn, Volcano | No deadlock (full gang guarantee) |
 
 ---
 
 ## **With Preemption**
 
-| # | Allocation | Scheduling | Deadlock Risk | Can Break Deadlock? | Efficiency | Stage Failure Risk | Preemption Issues | Notes |
-|---|------------|-----------|---------------|---------------------|------------|-------------------|-------------------|-------|
-| 7 | Dynamic | Default | ⚠️ Medium | ✅ Yes (messy) | Medium | High | ⚠️ **Thrashing** | Breaks deadlock but pod-by-pod, unpredictable |
-| 8 | Static | Default | ⚠️ Medium | ✅ Yes (messy) | Low-Med | Medium | ⚠️ **Thrashing** | Breaks deadlock but cascading kills |
-| 9 | Dynamic | App-aware | ⚠️ Low | ✅ Yes (partial) | High | Medium | ⚠️ **Lost scale-up** | Preempts during scale, wasted work |
-| 10 | Static | App-aware | ✅ **SAFE** | ✅ Yes (clean) | Low-Med | Low | ✅ **Clean** | Preempts entire job cleanly, priority respected |
-| 11 | Dynamic | App-aware-gang | ⚠️ Low | ✅ Yes (risky) | Medium-High | Medium | ⚠️ **Partial gang loss** | May break gang during scale-up |
-| 12 | Static | App-aware-gang | ✅ **SAFE** | ✅ Yes (atomic) | Low-Med | Low | ✅ **Atomic** | Preempts entire gang atomically |
+| # | Allocation | Scheduling | Deadlock Risk | Can Break Deadlock? | Efficiency | Stage Failure Risk | Preemption Issues | Supported By | Notes |
+|---|------------|-----------|---------------|---------------------|------------|-------------------|-------------------|--------------|-------|
+| 7 | Dynamic | Default | ⚠️ Medium | ✅ Yes (messy) | Medium | High | ⚠️ **Thrashing** | Default K8s Scheduler (PriorityClass) | Breaks deadlock but pod-by-pod, unpredictable |
+| 8 | Static | Default | ⚠️ Medium | ✅ Yes (messy) | Low-Med | Medium | ⚠️ **Thrashing** | Default K8s Scheduler (PriorityClass) | Breaks deadlock but cascading kills |
+| 9 | Dynamic | App-aware | ⚠️ Low | ✅ Yes (partial) | High | Medium | ⚠️ **Lost scale-up** | YuniKorn, Volcano (w/ preemption) | Preempts during scale, wasted work |
+| 10 | Static | App-aware | ✅ **SAFE** | ✅ Yes (clean) | Low-Med | Low | ✅ **Clean** | YuniKorn, Volcano (w/ preemption) | Preempts entire job cleanly, priority respected |
+| 11 | Dynamic | App-aware-gang | ⚠️ Low | ✅ Yes (risky) | Medium-High | Medium | ⚠️ **Partial gang loss** | YuniKorn, Volcano (gang + preemption) | May break gang during scale-up |
+| 12 | Static | App-aware-gang | ✅ **SAFE** | ✅ Yes (atomic) | Low-Med | Low | ✅ **Atomic** | YuniKorn, Volcano (gang + preemption) | Preempts entire gang atomically |
 
 ---
 
